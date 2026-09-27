@@ -38,7 +38,7 @@ export default function TeamPage() {
           ))}
         </ul>
       </section>
-      <p className="text-[11px] text-muted-foreground"><span className="font-semibold tracking-[0.12em] uppercase"><SectionLabel>Ownership rule</SectionLabel></span><span className="mt-1 block">SyncCode routes every downstream file to exactly one owner. No orphaned impact, no broadcast noise.</span></p>
+      <p className="text-[11px] text-muted-foreground"><span className="font-semibold tracking-[0.12em] uppercase"><SectionLabel>Ownership rule</SectionLabel></span><span className="mt-1 block">ChangeMind routes every downstream file to exactly one owner. No orphaned impact, no broadcast noise.</span></p>
     </div>
   );
 }

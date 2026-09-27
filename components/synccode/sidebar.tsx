@@ -41,7 +41,7 @@ const GROUPS: { label: string; items: { href: string; label: string; icon: typeo
   {
     label: "Agent",
     items: [
-      { href: "/agent", label: "Sync Agent", icon: Sparkles },
+      { href: "/agent", label: "ChangeMind Agent", icon: Sparkles },
       { href: "/agent/tools", label: "Toolbox", icon: Plug },
       { href: "/agent/runs", label: "Runs", icon: PlayCircle },
       { href: "/approvals", label: "Approvals", icon: Boxes, badge: "1", alert: true },
@@ -59,8 +59,8 @@ export function Sidebar({ open, onClose, collapsed, onCollapsedChange }: { open:
   const body = (
     <div className="flex h-full flex-col">
       <div className={cn("flex h-14 items-center gap-2 border-b border-white/[0.06]", collapsed ? "justify-center px-2" : "px-3.5")}>
-        <span className="flex size-6 items-center justify-center rounded-md bg-white text-[11px] font-black text-black">S</span>
-        {!collapsed && <span className="text-[13px] font-semibold tracking-tight">SyncCode</span>}
+        <span className="flex size-6 items-center justify-center rounded-md bg-white text-[11px] font-black text-black">C</span>
+        {!collapsed && <span className="text-[13px] font-semibold tracking-tight">ChangeMind</span>}
         {!collapsed && <span className="sc-mono ml-auto rounded border border-white/10 px-1 text-[9px] text-muted-foreground">v2.4</span>}
         <button className="hidden rounded p-1 text-muted-foreground hover:text-foreground lg:block" onClick={() => onCollapsedChange(!collapsed)} aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}>
           {collapsed ? <PanelLeftOpen className="size-3.5" /> : <PanelLeftClose className="size-3.5" />}

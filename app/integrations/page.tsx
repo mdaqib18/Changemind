@@ -19,7 +19,7 @@ export default function IntegrationsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-[19px] font-semibold tracking-tight">Integrations</h1>
-        <p className="mt-1 text-[13px] text-muted-foreground">SyncCode sits between your repos and your team rituals.</p>
+        <p className="mt-1 text-[13px] text-muted-foreground">ChangeMind sits between your repos and your team rituals.</p>
       </div>
       <section className="sc-panel divide-y divide-white/[0.05]" aria-label="Integrations">
         {INTEG.map((i) => (

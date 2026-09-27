@@ -26,7 +26,7 @@ export default function AIPage() {
           <div className="flex items-center gap-2">
             <span className="flex size-6 items-center justify-center rounded-md bg-violet-500/15 text-violet-200"><Sparkles className="size-3.5" /></span>
             <div>
-              <p className="text-[13px] font-semibold">SYNC AI · analyzing change #1042</p>
+              <p className="text-[13px] font-semibold">ChangeMind Agent · analyzing change #1042</p>
               <p className="sc-mono text-[10px] text-muted-foreground">run_9f31 · {phase === "running" ? "operating…" : "last run complete"}</p>
             </div>
             <Badge variant="ai" className="ml-auto">{phase === "running" ? "Operating" : "Idle"}</Badge>

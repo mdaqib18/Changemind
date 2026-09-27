@@ -15,7 +15,7 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
-const demoWorkspace: Workspace = { id: "demo-workspace", name: "SyncCode Demo", slug: "synccode-demo", role: "owner", projects: [{ id: "demo-project", name: "frontend-web", slug: "frontend-web", description: "Demo workspace for change coordination.", visibility: "private", repository: { name: "shopx/frontend-web", default_branch: "main", is_demo: true } }] };
+const demoWorkspace: Workspace = { id: "demo-workspace", name: "ChangeMind Demo", slug: "synccode-demo", role: "owner", projects: [{ id: "demo-project", name: "frontend-web", slug: "frontend-web", description: "Demo workspace for change coordination.", visibility: "private", repository: { name: "shopx/frontend-web", default_branch: "main", is_demo: true } }] };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);

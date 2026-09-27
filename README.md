@@ -1,6 +1,6 @@
-# SyncCode
+# ChangeMind
 
-SyncCode is a collaborative development workspace for understanding the consequences of code changes and coordinating their safe resolution.
+ChangeMind is an AI-powered engineering coordination platform that understands how code changes affect repositories, teams, and dependent systems. It detects changes, analyzes their impact, creates Change Capsules, and helps teams safely validate and integrate changes.
 
 ## Architecture
 
@@ -17,13 +17,13 @@ Next.js application
      Inngest
  (background and change processing)
         |
-Change Capsules -> Impact Graph -> Sync Agent -> Validation / PR / Integration
+Change Capsules -> ChangeMind Impact Graph -> ChangeMind Agent -> Validation / PR / Integration
 ```
 
 The application has two deliberately separate modes:
 
 - Production mode reads authenticated workspace and project data from Supabase.
-- Demo mode provides deterministic local data when Supabase is not configured, so the Change Capsules, Impact Graph, Sync Agent, Code Workspace, approvals, and validation UI remain explorable.
+- Demo mode provides deterministic local data when Supabase is not configured, so the Change Capsules, ChangeMind Impact Graph, ChangeMind Agent, ChangeMind Workspace, approvals, and validation UI remain explorable.
 
 ## Current capabilities
 

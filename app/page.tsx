@@ -146,7 +146,7 @@ export default function Page() {
               <div className="p-3.5 sm:border-r sm:border-white/[0.06]">
                 <SectionLabel>Team activity</SectionLabel>
                 <ol className="mt-2 space-y-2 border-l border-white/10 pl-2.5">
-                  {[["09:42", "Rahul changed User API", "text-red-300"], ["09:42", "SyncCode detected 3 consumers", "text-violet-200"], ["09:43", "AI generated frontend patch", "text-emerald-300"], ["09:44", "Validation passed", "text-emerald-300"]].map(([time, event, tone]) => <li key={event} className="flex gap-2 text-[11px]"><span className="sc-mono text-muted-foreground">{time}</span><span className={tone}>{event}</span></li>)}
+                  {[["09:42", "Rahul changed User API", "text-red-300"], ["09:42", "ChangeMind detected 3 consumers", "text-violet-200"], ["09:43", "AI generated frontend patch", "text-emerald-300"], ["09:44", "Validation passed", "text-emerald-300"]].map(([time, event, tone]) => <li key={event} className="flex gap-2 text-[11px]"><span className="sc-mono text-muted-foreground">{time}</span><span className={tone}>{event}</span></li>)}
                 </ol>
               </div>
               <div className="p-3.5">

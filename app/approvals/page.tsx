@@ -21,7 +21,7 @@ export default function ApprovalsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-[19px] font-semibold tracking-tight">Approvals</h1>
-        <p className="mt-1 text-[13px] text-muted-foreground">An engineering safety mechanism — SyncCode explains why a human is required.</p>
+        <p className="mt-1 text-[13px] text-muted-foreground">An engineering safety mechanism — ChangeMind explains why a human is required.</p>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1fr_380px]">

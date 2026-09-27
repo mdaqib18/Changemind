@@ -12,15 +12,15 @@ Software developers collaborating on shared repositories, especially when upstre
 
 ## Product Purpose
 
-SyncCode helps teams understand, coordinate, validate, and integrate the consequences of software changes from one shared workspace.
+ChangeMind helps teams understand, coordinate, validate, and integrate the consequences of software changes from one shared workspace.
 
 ## Positioning
 
-Unlike a conventional editor, SyncCode connects the code being edited to its dependencies, affected consumers, owners, synchronization state, and practical next actions.
+Unlike a conventional editor, ChangeMind connects the code being edited to its dependencies, affected consumers, owners, synchronization state, and practical next actions.
 
 ## Operating Context
 
-Developers use SyncCode in a cloud development workflow to inspect project files, react to upstream contract changes, assess blast radius, use narrowly scoped AI fixes, validate changes, and commit simulated work.
+Developers use ChangeMind in a cloud development workflow to inspect project files, react to upstream contract changes, assess blast radius, use narrowly scoped AI fixes, validate changes, and commit simulated work.
 
 ## Capabilities and Constraints
 
@@ -28,7 +28,7 @@ The product uses a dark, compact application shell. This implementation is front
 
 ## Brand Commitments
 
-Preserve SyncCode's existing dashboard identity and its core language: Change → Impact → People → Action → Validation → Integration. The code workspace must be an extension of that identity, not a redesign.
+Preserve ChangeMind's existing dashboard identity and its core language: Change → Impact → People → Action → Validation → Integration. The code workspace must be an extension of that identity, not a redesign.
 
 ## Evidence on Hand
 

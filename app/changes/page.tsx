@@ -55,7 +55,7 @@ export default function ChangesPage() {
           })}
         </ul>
       </section>
-      <p className="text-xs text-muted-foreground"><SectionLabel>No active changes?</SectionLabel><span className="mt-1 block text-xs normal-case tracking-normal">When your team pushes a meaningful change, SyncCode will build its impact map here.</span></p>
+      <p className="text-xs text-muted-foreground"><SectionLabel>No active changes?</SectionLabel><span className="mt-1 block text-xs normal-case tracking-normal">When your team pushes a meaningful change, ChangeMind will build its impact map here.</span></p>
     </div>
   );
 }

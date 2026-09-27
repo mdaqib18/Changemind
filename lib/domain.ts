@@ -1,4 +1,4 @@
-/** Shared SyncCode domain contracts used by the UI and future production adapters. */
+/** Shared ChangeMind domain contracts used by the UI and future production adapters. */
 export type Risk = "LOW" | "MEDIUM" | "HIGH";
 export type SyncEventType =
   | "CHANGE_DETECTED" | "IMPACT_ANALYSIS_STARTED" | "IMPACT_ANALYSIS_COMPLETED"

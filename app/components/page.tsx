@@ -10,7 +10,7 @@ const COMPONENTS = [
 ];
 
 export default function ComponentsPage() {
-  return <div className="space-y-4"><header><h1 className="text-[19px] font-semibold tracking-tight">Components</h1><p className="mt-1 text-[13px] text-muted-foreground">The software assets SyncCode maps to owners, contracts, and change paths.</p></header>
+  return <div className="space-y-4"><header><h1 className="text-[19px] font-semibold tracking-tight">Components</h1><p className="mt-1 text-[13px] text-muted-foreground">The software assets ChangeMind maps to owners, contracts, and change paths.</p></header>
     <section className="sc-panel overflow-hidden" aria-label="Components">
       {COMPONENTS.map((c) => <div key={c.name} className="flex items-center gap-3 border-b border-white/[0.05] px-3.5 py-3 last:border-0">
         <span className="flex size-8 items-center justify-center rounded-md border border-white/10 bg-white/[0.04]"><AppWindow className="size-3.5 text-muted-foreground" /></span>

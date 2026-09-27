@@ -22,5 +22,5 @@ export const INITIAL_WORKSPACE_FILES: WorkspaceFile[] = [
   { id: "profile-page", name: "profile.tsx", path: "src/pages/profile.tsx", language: "typescript", content: "export default function ProfilePage() { return <div>Profile</div>; }" },
   { id: "user-service-test", name: "UserService.test.ts", path: "tests/UserService.test.ts", language: "typescript", content: "describe('UserService', () => { it('loads a user', () => {}); });" },
   { id: "package", name: "package.json", path: "package.json", language: "json", content: "{\n  \"name\": \"shopx-frontend\",\n  \"private\": true\n}" },
-  { id: "readme", name: "README.md", path: "README.md", language: "markdown", content: "# ShopX frontend\n\nA SyncCode demo repository." },
+  { id: "readme", name: "README.md", path: "README.md", language: "markdown", content: "# ShopX frontend\n\nA ChangeMind demo repository." },
 ];

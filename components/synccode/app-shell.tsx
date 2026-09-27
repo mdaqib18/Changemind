@@ -59,7 +59,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <main className={pathname.startsWith("/code") ? "min-h-0 w-full flex-1 overflow-hidden" : "mx-auto min-h-0 w-full max-w-[1280px] flex-1 overflow-y-auto px-4 py-6 sm:px-6"}>{children}</main>
           {!pathname.startsWith("/code") && <footer className="border-t border-white/[0.06] px-4 py-2.5">
             <p className="sc-mono mx-auto max-w-[1280px] text-[10px] tracking-wide text-muted-foreground/70">
-              CHANGE → IMPACT → PEOPLE → ACTION → VALIDATION → INTEGRATION <span className="float-right hidden sm:inline">SyncCode engine · deterministic demo</span>
+              CHANGE → IMPACT → PEOPLE → ACTION → VALIDATION → INTEGRATION <span className="float-right hidden sm:inline">ChangeMind engine · deterministic demo</span>
             </p>
           </footer>}
         </div>
