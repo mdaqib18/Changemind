@@ -52,6 +52,13 @@ export interface SyncChange {
   tests: { passed: number; total: number };
   reason: string;
   diff: { file: string; lang: string; removed: string[]; added: string[] }[];
+  commit?: string;
+  summary?: string;
+  recommendation?: string;
+  potentialOwners?: string[];
+  impact?: string[];
+  affectedTeams?: string[];
+  reasoning?: string;
 }
 
 export const TEAM = [
@@ -72,33 +79,37 @@ export const CHANGES: SyncChange[] = [
   {
     id: "1042",
     num: 1042,
-    title: "User.name → User.full_name",
-    from: "User.name",
-    to: "User.full_name",
-    repo: "backend-api",
+    title: "Authentication middleware update",
+    from: "Authentication Middleware",
+    to: "Workspace Authorization",
+    repo: "changemind-web",
     author: "Rahul",
     authorRole: "Backend",
-    time: "8 minutes ago",
-    sha: "a3f9c21",
-    risk: "MEDIUM",
-    status: "awaiting-approval",
+    time: "just now",
+    sha: "b7a4f21",
+    risk: "HIGH",
+    status: "detected",
     breaking: true,
-    files: ["src/schemas/user.ts", "src/routes/user.ts", "openapi.yaml"],
+    files: ["src/auth/middleware.ts", "src/auth/session.ts", "src/dashboard/layout.tsx", "src/api/projects.ts"],
     consumers: [
-      { repo: "frontend-web", component: "UserService", owner: "Aqib", state: "patched", files: 4 },
-      { repo: "mobile-app", component: "UserService", owner: "Sara", state: "awaiting", files: 3 },
-      { repo: "analytics-worker", component: "ETL mapper", owner: "Mina", state: "healthy", files: 1 },
+      { repo: "Authentication", component: "Middleware", owner: "Rahul", state: "affected", files: 2 },
+      { repo: "Dashboard", component: "Protected layout", owner: "Aqib", state: "affected", files: 1 },
+      { repo: "Projects API", component: "Route authorization", owner: "Sara", state: "affected", files: 1 },
     ],
     aiActions: [
-      { label: "Frontend patch generated", state: "done" },
-      { label: "Regression tests generated", state: "done" },
-      { label: "Mobile patch awaiting approval", state: "active" },
+      { label: "Change Capsule created", state: "done" },
+      { label: "Impact Graph updated", state: "done" },
+      { label: "Approval requested", state: "active" },
     ],
-    tests: { passed: 18, total: 18 },
-    reason: "Business logic affected. Human approval required.",
+    tests: { passed: 4, total: 4 },
+    reason: "The authentication middleware is used by multiple downstream components. Changes may affect workspace authorization and protected routes.",
+    commit: "Update authentication middleware",
+    summary: "Authentication middleware and session handling changed across protected dashboard and Projects API paths.",
+    recommendation: "Review authentication and workspace authorization dependencies before integrating this change.",
+    potentialOwners: ["Rahul · Authentication", "Aqib · Dashboard", "Sara · Projects API"],
     diff: [
-      { file: "src/schemas/user.ts", lang: "ts", removed: ["  name: string; // display name"], added: ["  full_name: string; // consolidated identity field"] },
-      { file: "src/routes/user.ts", lang: "ts", removed: ['  res.json({ name: user.name })'], added: ['  res.json({ full_name: user.full_name })'] },
+      { file: "src/auth/middleware.ts", lang: "ts", removed: ["  return allowRequest(request);"], added: ["  return enforceWorkspaceAuthorization(request);"] },
+      { file: "src/auth/session.ts", lang: "ts", removed: ["  session.workspace = undefined;"], added: ["  session.workspace = resolveWorkspace(session);"] },
     ],
   },
   {
@@ -172,16 +183,13 @@ export const PIPELINE_STEPS: { id: PipelineStage; label: string; hint: string }[
 ];
 
 export const DEMO_SEQUENCE = [
-  { t: 400, log: "Change detected on backend-api@a3f9c21 — src/schemas/user.ts", stage: 0 },
-  { t: 1400, log: "Parsing response contract… `name: string` removed", stage: 0 },
-  { t: 2400, log: "Impact analysis: 3 downstream consumers found", stage: 1 },
-  { t: 3400, log: "Owners identified: Aqib (frontend-web), Sara (mobile-app)", stage: 1 },
-  { t: 4600, log: "Sync AI generating downstream patch for frontend-web…", stage: 2 },
-  { t: 5800, log: "Frontend patch generated · 4 files · UserService migrated", stage: 2 },
-  { t: 6800, log: "Regression tests generated · running validation…", stage: 3 },
-  { t: 8000, log: "Validation completed · 18/18 tests passed · types clean", stage: 3 },
-  { t: 9000, log: "Risk classified: MEDIUM — business logic affected", stage: 4 },
-  { t: 10000, log: "Integration ready · awaiting human approval for mobile-app", stage: 5 },
+  { t: 300, log: "Change detected: Update authentication middleware", stage: 0 },
+  { t: 900, log: "Analyzing authentication middleware and session dependencies", stage: 1 },
+  { t: 1500, log: "Change Capsule created with 4 changed files and 3 potential owners", stage: 2 },
+  { t: 2100, log: "Impact Graph updated: Authentication → Session → Dashboard → Projects API → Workspace Authorization", stage: 2 },
+  { t: 2700, log: "Risk classified: HIGH — protected routes and workspace authorization are affected", stage: 4 },
+  { t: 3300, log: "ChangeMind Agent recommendation: review authentication and workspace authorization dependencies", stage: 4 },
+  { t: 3900, log: "Approval requested — automatic integration is blocked by policy", stage: 5 },
 ] as const;
 
 export const HIGH_RISK_SEQUENCE = [

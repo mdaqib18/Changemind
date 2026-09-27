@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { useDemo } from "@/lib/store";
 
 export function ChangeCapsule({ change, featured = false }: { change: SyncChange; featured?: boolean }) {
-  const { phase, team } = useDemo();
+  const { phase, team, analysisSource } = useDemo();
   const owner = team.find((member) => member.name === change.author);
   const live = phase === "running" && change.num === 1042;
   return (
@@ -40,6 +40,7 @@ export function ChangeCapsule({ change, featured = false }: { change: SyncChange
         <div className="flex flex-wrap items-center gap-2">
           {change.breaking ? <Badge variant="breaking">Breaking change</Badge> : <Badge variant="low">Non-breaking</Badge>}
           <RiskBadge risk={change.risk} />
+          {analysisSource === "demo" && <Badge variant="muted">Demo analysis</Badge>}
           {live && <Badge variant="ai">Live · propagating</Badge>}
         </div>
         <h3 className="sc-mono mt-2 text-[15px] font-semibold tracking-tight text-foreground">
@@ -49,6 +50,12 @@ export function ChangeCapsule({ change, featured = false }: { change: SyncChange
           <Avatar initials={owner?.initials ?? change.author.slice(0, 2).toUpperCase()} color={owner?.color ?? "#9b9ba1"} className="size-5 text-[9px]" />
           <span><strong className="font-medium text-foreground/90">{change.author}</strong> changed the {change.repo === "backend-api" ? "User response contract" : "contract"} · {change.time}</span>
         </p>
+
+        <div className="mt-2 rounded-md border border-white/[0.07] bg-white/[0.025] p-2.5 text-xs">
+          <p className="font-medium text-foreground">{change.title}</p>
+          {change.commit && <p className="sc-mono mt-1 text-[10px] text-muted-foreground">Commit: {change.commit}</p>}
+          <p className="mt-1.5 leading-relaxed text-muted-foreground">{change.summary ?? change.reason}</p>
+        </div>
 
         <Separator className="my-3 opacity-60" />
 
@@ -84,6 +91,12 @@ export function ChangeCapsule({ change, featured = false }: { change: SyncChange
         <p className="mt-2 text-[11px] text-muted-foreground">
           {change.consumers.length} repositories · {new Set(change.consumers.map((c) => c.owner)).size} developers · {change.consumers.reduce((a, c) => a + c.files, 0)} files touched
         </p>
+        <div className="mt-2 grid gap-2 text-[11px] sm:grid-cols-2">
+          <div><SectionLabel>Files changed</SectionLabel><p className="sc-mono mt-1 break-words text-muted-foreground">{change.files.join(" · ")}</p></div>
+          <div><SectionLabel>Potential owners</SectionLabel><p className="mt-1 text-muted-foreground">{change.potentialOwners?.join(" · ") ?? change.consumers.map((consumer) => consumer.owner).join(" · ")}</p></div>
+          {change.impact && <div className="sm:col-span-2"><SectionLabel>Analysis impact</SectionLabel><p className="mt-1 text-muted-foreground">{change.impact.join(" · ")}</p></div>}
+          {change.affectedTeams && <div className="sm:col-span-2"><SectionLabel>Affected teams</SectionLabel><p className="mt-1 text-muted-foreground">{change.affectedTeams.join(" · ")}</p></div>}
+        </div>
 
         <Separator className="my-3 opacity-60" />
 
@@ -111,6 +124,7 @@ export function ChangeCapsule({ change, featured = false }: { change: SyncChange
           <div className="min-w-0">
             <p className="text-[11px] font-semibold tracking-wide text-foreground/90">RISK · {change.risk}</p>
             <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{change.reason}</p>
+            {change.recommendation && <p className="mt-2 text-xs font-medium text-foreground/85">Recommendation: <span className="font-normal text-muted-foreground">{change.recommendation}</span></p>}
           </div>
         </div>
 

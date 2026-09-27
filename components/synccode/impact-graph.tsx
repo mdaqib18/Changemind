@@ -11,6 +11,27 @@ interface NodeState {
 export function ImpactGraph({ active = true, mini = false }: { active?: boolean; mini?: boolean }) {
   const { activeStage, phase, kind, changes, team } = useDemo();
   const change = changes.find((item) => item.id === "1042")!;
+  const authenticationPath = ["Authentication Middleware", "Session", "Dashboard", "Projects API", "Workspace Authorization"];
+
+  if (change.title === "Authentication middleware update") {
+    const complete = phase === "blocked" || phase === "ready";
+    return (
+      <div className={cn("sc-grid-bg overflow-hidden rounded-lg border border-border bg-[#0d0d0f]", mini ? "p-3" : "p-4")} role="img" aria-label="Authentication middleware impact graph">
+        <div className="flex flex-col items-center">
+          {authenticationPath.map((label, index) => (
+            <div key={label} className="flex flex-col items-center">
+              <div className={cn("rounded-lg border px-3 py-2 text-center shadow-sm transition-colors", index === 0 ? "border-red-400/40 bg-red-400/[0.08]" : complete || activeStage >= index ? "border-amber-400/35 bg-amber-400/[0.07]" : "border-white/10 bg-white/[0.02] text-muted-foreground/60", mini ? "min-w-[150px]" : "min-w-[210px]")}>
+                <p className="sc-mono text-[11px] font-semibold">{label}</p>
+                <p className="mt-px text-[9px] tracking-wide text-muted-foreground uppercase">{index === 0 ? "changed" : "affected"}</p>
+              </div>
+              {index < authenticationPath.length - 1 && <div className={cn("h-5 border-l-2", complete || activeStage >= index + 1 ? "border-violet-400/70" : "border-white/10")} aria-hidden />}
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 flex items-center gap-3 border-t border-white/[0.06] pt-2.5 text-[10px] text-muted-foreground"><span className="flex items-center gap-1"><span className="size-1.5 rounded-full bg-red-400" /> changed</span><span className="flex items-center gap-1"><span className="size-1.5 rounded-full bg-amber-300" /> affected</span><span className="sc-mono ml-auto">HIGH risk</span></div>
+      </div>
+    );
+  }
   const running = active && phase === "running";
   const done = phase === "done";
   const blocked = phase === "blocked";

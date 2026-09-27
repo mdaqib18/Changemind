@@ -42,7 +42,7 @@ export function Topbar({ onMenu, onPalette, onAgent, onWorkspaceContext }: { onM
 
       <div className="ml-auto flex items-center gap-1.5">
         <span className={cn("sc-mono hidden rounded border px-1.5 py-1 text-[10px] 2xl:block", phase === "running" ? "border-violet-400/30 text-violet-200" : "border-white/10 text-muted-foreground")}>
-          {phase === "running" ? "● LIVE DEMO" : phase === "done" ? "● DEMO COMPLETE" : phase === "blocked" ? "● APPROVAL NEEDED" : "○ ENGINE IDLE"}
+          {phase === "running" ? "● LIVE DEMO" : phase === "done" ? "● DEMO COMPLETE" : phase === "ready" ? "● READY FOR INTEGRATION" : phase === "blocked" ? "● APPROVAL NEEDED" : "○ ENGINE IDLE"}
         </span>
         <span className="hidden items-center gap-1 rounded border border-emerald-400/20 bg-emerald-400/[0.05] px-1.5 py-1 text-[10px] text-emerald-200 2xl:flex"><GitPullRequest className="size-3" /> GitHub connected</span>
         <button onClick={onAgent} className="hidden h-8 items-center gap-1 rounded-md border border-violet-300/20 bg-violet-400/[0.08] px-2 text-[11px] font-medium text-violet-100 hover:bg-violet-400/[0.14] md:flex" aria-label="Open Sync Agent"><Sparkles className="size-3.5" />Sync Agent <span className="ml-0.5 text-violet-200/65">⌘J</span></button>
@@ -66,8 +66,8 @@ export function Topbar({ onMenu, onPalette, onAgent, onWorkspaceContext }: { onM
           <TriangleAlert className="size-3.5 text-amber-300" />
           {confirmHigh ? "Confirm high-risk?" : "High-risk"}
         </Button>
-        <Button size="sm" onClick={() => runDemo("breaking")} aria-label="Simulate breaking change">
-          <Play className="size-3.5" /> <span className="hidden 2xl:inline">Simulate breaking change</span><span className="hidden xl:inline 2xl:hidden">Simulate</span><span className="xl:hidden">Run</span>
+        <Button size="sm" onClick={() => runDemo("breaking")} aria-label="Simulate demo workflow">
+          <Play className="size-3.5" /> <span className="hidden xl:inline">Simulate</span><span className="xl:hidden">Run</span>
         </Button>
         <div className="relative">
           <button onClick={() => setNotificationsOpen((v) => !v)} aria-label="Open notifications" aria-expanded={notificationsOpen} className="relative flex size-8 items-center justify-center rounded-md text-muted-foreground hover:bg-white/[0.06] hover:text-foreground">

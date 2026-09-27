@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 export default function ApprovalsPage() {
   const { changes, approvals, decideApproval } = useDemo();
   const change = changes.find((item) => item.id === "1042")!;
-  const approval = approvals.find((item) => item.changeId === change.id)!;
+  const approval = approvals.find((item) => item.changeId === change.id) ?? { id: "pending-1042", changeId: change.id, status: "pending" as const };
   const showDiff = useState(false);
 
   return (
@@ -27,25 +27,25 @@ export default function ApprovalsPage() {
       <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
         <section className="sc-panel p-4" aria-label="Approval request">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="breaking">Medium risk</Badge>
-            <RiskBadge risk="MEDIUM" />
+            <Badge variant="breaking">High risk</Badge>
+            <RiskBadge risk="HIGH" />
             <span className="sc-mono ml-auto text-[11px] text-muted-foreground">#{change.num} · {change.sha}</span>
           </div>
-          <h2 className="sc-mono mt-2 text-[16px] font-semibold">Backend API contract changed: {change.title}</h2>
+          <h2 className="sc-mono mt-2 text-[16px] font-semibold">{change.title}</h2>
 
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <div className="sc-inset p-2.5">
               <SectionLabel>Affected</SectionLabel>
               <ul className="sc-mono mt-1.5 space-y-1 text-xs text-foreground/85">
-                <li>frontend-web <span className="text-emerald-300">· patched ✓</span></li>
-                <li>mobile-app <span className="text-amber-300">· awaiting approval</span></li>
+                <li>Authentication <span className="text-amber-300">· middleware affected</span></li>
+                <li>Dashboard · Projects API · Workspace authorization</li>
               </ul>
             </div>
             <div className="sc-inset p-2.5">
               <SectionLabel>AI generated</SectionLabel>
               <ul className="mt-1.5 space-y-1 text-xs text-foreground/85">
-                <li className="flex items-center gap-1.5"><Check className="size-3 text-emerald-300" /> downstream patch</li>
-                <li className="flex items-center gap-1.5"><Check className="size-3 text-emerald-300" /> regression tests (18/18)</li>
+                <li className="flex items-center gap-1.5"><Check className="size-3 text-emerald-300" /> Change Capsule and Impact Graph</li>
+                <li className="flex items-center gap-1.5"><Check className="size-3 text-emerald-300" /> workspace authorization analysis</li>
               </ul>
             </div>
           </div>
@@ -53,8 +53,7 @@ export default function ApprovalsPage() {
           <div className="mt-3 flex items-start gap-2 rounded-lg border border-amber-400/25 bg-amber-400/[0.06] p-2.5">
             <ShieldAlert className="mt-0.5 size-4 shrink-0 text-amber-300" />
             <p className="text-xs leading-relaxed text-amber-100/85">
-              <strong className="font-semibold">Human approval required because:</strong> business-logic modification detected in the User response contract.
-              Payment-adjacent identity fields fall under the medium-risk policy — auto-merge is disabled until an owner signs off.
+              <strong className="font-semibold">Human approval required because:</strong> {change.reason}
             </p>
           </div>
 
@@ -69,7 +68,7 @@ export default function ApprovalsPage() {
           <Separator className="my-3 opacity-60" />
           {approval.status === "approved" ? (
             <div className="flex items-center gap-2 rounded-lg border border-emerald-400/25 bg-emerald-400/[0.07] p-3 text-xs text-emerald-100" role="status">
-              <Check className="size-4" /> Mobile patch approved — integration queued. Sara has been notified.
+              <Check className="size-4" /> <span>Change approved<br />Impact acknowledged<br />Validation completed<br /><strong>Ready for integration</strong></span>
             </div>
           ) : approval.status === "rejected" ? (
             <div className="flex items-center gap-2 rounded-lg border border-red-400/25 bg-red-400/[0.07] p-3 text-xs text-red-100" role="status">

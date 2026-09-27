@@ -1,7 +1,9 @@
 "use client";
 
 import { Check, Sparkles } from "lucide-react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { SectionLabel, Separator } from "@/components/ui/primitives";
 import { AIExecutionLog } from "@/components/synccode/ai-log";
 import { useDemo } from "@/lib/store";
@@ -14,7 +16,8 @@ const RUNS = [
 void RUNS;
 
 export default function AIPage() {
-  const { phase, agentRuns } = useDemo();
+  const { phase, agentRuns, changes, requestApproval, analysis, analysisSource } = useDemo();
+  const change = changes.find((item) => item.id === "1042")!;
   return (
     <div className="space-y-4">
       <div>
@@ -34,19 +37,20 @@ export default function AIPage() {
           <Separator className="my-3 opacity-60" />
           <ul className="space-y-1.5 text-[13px]">
             {[
-              "Response schema modification detected",
-              "3 downstream consumers found",
-              "2 owners identified",
-              "Frontend patch generated",
-              "Regression tests generated",
-              "Validation completed",
+              "Authentication middleware update detected",
+              ...analysis.impact,
+              "Change Capsule and Impact Graph updated",
+              `${analysis.risk} risk policy gate applied`,
             ].map((s) => (
               <li key={s} className="flex items-center gap-2 text-foreground/85"><Check className="size-3.5 text-emerald-300" /> {s}</li>
             ))}
           </ul>
           <div className="sc-inset mt-3 p-2.5">
             <SectionLabel>Recommendation</SectionLabel>
-            <p className="mt-1 text-[13px] font-medium text-emerald-200">Safe to integrate <span className="font-normal text-muted-foreground">— after mobile-app approval</span></p>
+            <p className="mt-1 text-[13px] font-medium text-amber-200">{change.recommendation}</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{analysis.reasoning}</p>
+            {analysisSource === "demo" && <Badge variant="muted" className="mt-2">Demo analysis</Badge>}
+            {phase === "ready" ? <p className="mt-2 flex items-center gap-1.5 text-xs text-emerald-200"><Check className="size-3.5" />Ready for integration</p> : <div className="mt-3 flex gap-2"><Button size="sm" onClick={requestApproval}>Request Approval</Button><Button size="sm" variant="outline" asChild><Link href="/approvals">View approval</Link></Button></div>}
           </div>
         </section>
         <div className="space-y-4">

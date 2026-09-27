@@ -20,7 +20,7 @@ function greeting() {
 }
 
 export default function Page() {
-  const { activeStage, completedStages, phase, kind, progress, changes, team } = useDemo();
+  const { activeStage, completedStages, phase, progress, changes, team } = useDemo();
   const capsule = changes[0];
   const TEAM = team;
 
@@ -35,8 +35,10 @@ export default function Page() {
               {phase === "running"
                 ? "Sync engine is propagating a change through your team."
                 : phase === "blocked"
-                  ? "A high-risk change is blocked — your review is required."
-                  : "Your team is synchronized. 3 changes are being processed. 1 approval needs your attention."}
+                  ? "A high-risk authentication change is blocked — your review is required."
+                  : phase === "ready"
+                    ? "Authentication impact acknowledged. This change is ready for integration."
+                    : "Your team is synchronized. 3 changes are being processed. 1 approval needs your attention."}
             </p>
           </div>
           <div className="ml-auto flex gap-2">
@@ -103,8 +105,8 @@ export default function Page() {
           <section className="sc-panel p-3.5" aria-label="Live change pipeline">
             <div className="flex items-center gap-2">
               <SectionLabel>Live pipeline · #1042</SectionLabel>
-              <Badge variant={phase === "blocked" ? "high" : phase === "done" ? "ok" : "ai"} className="ml-auto">
-                {phase === "running" ? "Propagating" : phase === "done" ? "Integrated path ready" : phase === "blocked" ? "Blocked" : "Tracking"}
+              <Badge variant={phase === "blocked" ? "high" : phase === "done" || phase === "ready" ? "ok" : "ai"} className="ml-auto">
+                {phase === "running" ? "Propagating" : phase === "done" || phase === "ready" ? "Ready for integration" : phase === "blocked" ? "Approval needed" : "Tracking"}
               </Badge>
             </div>
             <div className="mt-2.5">
@@ -112,7 +114,7 @@ export default function Page() {
             </div>
             <div className="mt-3 border-t border-white/[0.06] pt-2.5">
               <div className="mb-1.5 flex justify-between text-[10px] text-muted-foreground">
-                <span className="sc-mono">{kind === "high-risk" ? "HIGH-RISK SCENARIO" : "BREAKING-CHANGE SCENARIO"}</span>
+                <span className="sc-mono">AUTHENTICATION-MIDDLEWARE SCENARIO</span>
                 <span className="sc-mono tabular-nums">{progress}%</span>
               </div>
               <Progress value={progress} />
@@ -137,7 +139,7 @@ export default function Page() {
             <Separator className="my-2.5 opacity-60" />
             <div className="flex items-center gap-2 text-xs">
               <Check className="size-3.5 text-emerald-300" />
-              <span className="text-foreground/85">Recommendation: <strong className="font-medium">safe to integrate</strong> after mobile approval</span>
+              <span className="text-foreground/85">Recommendation: <strong className="font-medium">review authentication and workspace authorization dependencies</strong> before integrating.</span>
             </div>
           </section>
 
@@ -146,7 +148,7 @@ export default function Page() {
               <div className="p-3.5 sm:border-r sm:border-white/[0.06]">
                 <SectionLabel>Team activity</SectionLabel>
                 <ol className="mt-2 space-y-2 border-l border-white/10 pl-2.5">
-                  {[["09:42", "Rahul changed User API", "text-red-300"], ["09:42", "ChangeMind detected 3 consumers", "text-violet-200"], ["09:43", "AI generated frontend patch", "text-emerald-300"], ["09:44", "Validation passed", "text-emerald-300"]].map(([time, event, tone]) => <li key={event} className="flex gap-2 text-[11px]"><span className="sc-mono text-muted-foreground">{time}</span><span className={tone}>{event}</span></li>)}
+                  {[["09:42", "Authentication middleware updated", "text-red-300"], ["09:42", "ChangeMind mapped protected-route dependencies", "text-violet-200"], ["09:43", "Change Capsule and Impact Graph created", "text-emerald-300"], ["09:44", "HIGH risk approval requested", "text-amber-300"]].map(([time, event, tone]) => <li key={event} className="flex gap-2 text-[11px]"><span className="sc-mono text-muted-foreground">{time}</span><span className={tone}>{event}</span></li>)}
                 </ol>
               </div>
               <div className="p-3.5">
@@ -162,8 +164,8 @@ export default function Page() {
           <section className="flex items-start gap-2.5 rounded-lg border border-amber-400/25 bg-amber-400/[0.06] p-3" aria-label="Approval needed">
             <ShieldAlert className="mt-0.5 size-4 shrink-0 text-amber-300" />
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-semibold text-amber-100">Mobile patch awaiting approval</p>
-              <p className="mt-0.5 text-xs leading-relaxed text-amber-100/70">Sara owns mobile-app / UserService. Business-logic modification detected — human sign-off required.</p>
+              <p className="text-xs font-semibold text-amber-100">Authentication middleware approval required</p>
+              <p className="mt-0.5 text-xs leading-relaxed text-amber-100/70">Workspace authorization and protected routes may be affected. Human sign-off is required.</p>
               <div className="mt-2 flex gap-1.5">
                 <Button size="xs" asChild><Link href="/approvals">Review approval</Link></Button>
                 <Button size="xs" variant="outline" asChild><Link href="/changes/1042">View diff</Link></Button>

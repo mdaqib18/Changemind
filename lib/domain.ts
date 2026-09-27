@@ -26,7 +26,7 @@ export interface SyncEvent { id: string; type: SyncEventType; changeId: string; 
 export type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
 export type PipelineStage = "detected" | "impact" | "fix" | "validation" | "risk" | "integration";
 export interface RepoConsumer { repo: string; component: string; owner: string; state: "patched" | "awaiting" | "healthy" | "affected" | "blocked"; files: number; }
-export interface SyncChange { id: string; num: number; title: string; from: string; to: string; repo: string; author: string; authorRole: string; time: string; sha: string; risk: RiskLevel; status: string; breaking: boolean; files: string[]; consumers: RepoConsumer[]; aiActions: { label: string; state: "done" | "active" | "pending" | "blocked" }[]; tests: { passed: number; total: number }; reason: string; diff: { file: string; lang: string; removed: string[]; added: string[] }[]; }
+export interface SyncChange { id: string; num: number; title: string; from: string; to: string; repo: string; author: string; authorRole: string; time: string; sha: string; risk: RiskLevel; status: string; breaking: boolean; files: string[]; consumers: RepoConsumer[]; aiActions: { label: string; state: "done" | "active" | "pending" | "blocked" }[]; tests: { passed: number; total: number }; reason: string; diff: { file: string; lang: string; removed: string[]; added: string[] }[]; commit?: string; summary?: string; recommendation?: string; potentialOwners?: string[]; impact?: string[]; affectedTeams?: string[]; reasoning?: string; }
 export const PIPELINE_STEPS: { id: PipelineStage; label: string; hint: string }[] = [
   { id: "detected", label: "Change detected", hint: "webhook · push" },
   { id: "impact", label: "Impact analysis", hint: "3 consumers" },
