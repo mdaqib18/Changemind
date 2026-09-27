@@ -18,7 +18,7 @@ export function Topbar({ onMenu, onPalette, onAgent, onWorkspaceContext }: { onM
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 min-w-0 items-center gap-2 overflow-hidden border-b border-white/[0.06] bg-[#0a0a0b]/85 px-4 backdrop-blur-md sm:px-5">
+    <header className="relative z-40 flex h-14 shrink-0 min-w-0 items-center gap-2 border-b border-white/[0.06] bg-[#0a0a0b]/85 px-4 backdrop-blur-md sm:px-5">
       <button className="rounded-md p-1.5 text-muted-foreground hover:bg-white/[0.06] hover:text-foreground lg:hidden" onClick={onMenu} aria-label="Open navigation">
         <Menu className="size-4" />
       </button>

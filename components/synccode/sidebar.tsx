@@ -58,7 +58,7 @@ export function Sidebar({ open, onClose, collapsed, onCollapsedChange }: { open:
 
   const body = (
     <div className="flex h-full flex-col">
-      <div className={cn("flex h-14 items-center gap-2 border-b border-white/[0.06]", collapsed ? "justify-center px-2" : "px-3.5")}>
+      <div className={cn("flex h-14 shrink-0 items-center gap-2 border-b border-white/[0.06]", collapsed ? "justify-center px-2" : "px-3.5")}>
         <span className="flex size-6 items-center justify-center rounded-md bg-white text-[11px] font-black text-black">C</span>
         {!collapsed && <span className="text-[13px] font-semibold tracking-tight">ChangeMind</span>}
         {!collapsed && <span className="sc-mono ml-auto rounded border border-white/10 px-1 text-[9px] text-muted-foreground">v2.4</span>}
@@ -70,7 +70,7 @@ export function Sidebar({ open, onClose, collapsed, onCollapsedChange }: { open:
         </button>
       </div>
 
-      <nav className={cn("flex-1 space-y-5 overflow-y-auto py-4", collapsed ? "px-2" : "px-2.5")} aria-label="Primary">
+      <nav className={cn("min-h-0 flex-1 space-y-5 overflow-y-auto py-4", collapsed ? "px-2" : "px-2.5")} aria-label="Primary">
         {GROUPS.map((g) => (
           <div key={g.label}>
             {!collapsed && <p className="px-1.5 pb-1.5 text-[9px] font-semibold tracking-[0.16em] text-muted-foreground/70 uppercase">{g.label}</p>}
@@ -117,7 +117,7 @@ export function Sidebar({ open, onClose, collapsed, onCollapsedChange }: { open:
         </div>
       </nav>
 
-      <div className={cn("border-t border-white/[0.06] p-2.5", collapsed && "p-2")}>
+      <div className={cn("shrink-0 border-t border-white/[0.06] p-2.5", collapsed && "p-2")}>
         <div className={cn("sc-inset flex items-center gap-2 p-2", collapsed && "justify-center p-1.5")}>
           <span className={cn("size-2 rounded-full", phase === "running" ? "sc-pulse-dot bg-violet-400" : phase === "blocked" ? "bg-red-400" : "bg-emerald-400")} aria-hidden />
           {!collapsed && <div className="min-w-0">
@@ -138,13 +138,13 @@ export function Sidebar({ open, onClose, collapsed, onCollapsedChange }: { open:
 
   return (
     <>
-      <aside className="sticky top-0 hidden h-dvh min-h-0 border-r border-white/[0.06] bg-[#0e0e10] lg:block" aria-label="Sidebar">
+      <aside className="relative z-30 hidden h-dvh min-h-0 min-w-0 border-r border-white/[0.06] bg-[#0e0e10] lg:block" aria-label="Sidebar">
         {body}
       </aside>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
           <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-          <aside className="absolute inset-y-0 left-0 w-[260px] border-r border-white/10 bg-[#0e0e10]">{body}</aside>
+          <aside className="absolute inset-y-0 left-0 w-72 max-w-[85vw] border-r border-white/10 bg-[#0e0e10]">{body}</aside>
         </div>
       )}
     </>
